@@ -4,7 +4,7 @@ import org.jooq.DSLContext
 import org.jooq.impl.DSL
 import java.util.*
 
-abstract class BaseRepository
+abstract class BaseRepository {
     fun createQuery(): DSLContext {
         val properties = Properties()
         properties.load(Properties::class.java.getResourceAsStream("/config.properties"))
@@ -14,3 +14,4 @@ abstract class BaseRepository
                 properties.getProperty("db.password")
         )
     }
+}

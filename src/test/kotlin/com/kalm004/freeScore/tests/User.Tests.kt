@@ -1,4 +1,4 @@
-package com.kalm004.freeScore.tests.user
+package com.kalm004.freeScore.tests
 
 import com.kalm004.freeScore.user.User
 import com.kalm004.freeScore.user.UserRepository
@@ -22,6 +22,10 @@ class UserTests {
     @Test
     fun testGetAllUsers() {
         given(userRepository.getAll()).willReturn(setOf(User(1, "Test")))
-        assertEquals(setOf(User(1, "Test")), userService.getAllUsers(), "Get all users different result")
+        assertEquals(
+                setOf(User(1, "Test")),
+                userService.getAllUsers(),
+                "Get all users different result"
+        )
     }
 }
