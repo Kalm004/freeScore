@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class UserController(@Autowired var userService : UserService) {
 
-    @GetMapping("/getAll")
+    @GetMapping("/users")
     fun getAll() = userService.getAllUsers()
 
 }

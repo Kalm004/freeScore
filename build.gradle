@@ -44,6 +44,58 @@ dependencies {
     testCompile "org.jetbrains.kotlin:kotlin-test"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit"
 }
+
+jooq {
+    version = '3.10.5' // the default (can be omitted)
+    edition = 'OSS'    // the default (can be omitted), other allowed values are PRO, PRO_JAVA_6, and TRIAL
+
+    freeScore(sourceSets.main) {
+        jdbc {
+            driver = 'org.postgresql.Driver'
+            url = 'jdbc:postgresql://localhost:5432/postgres'
+            user = 'postgres'
+            password = 'postgres'
+        }
+        generator {
+            name = 'org.jooq.util.DefaultGenerator'
+            strategy {
+                name = 'org.jooq.util.DefaultGeneratorStrategy'
+                // ...
+            }
+            database {
+                name = 'org.jooq.util.postgres.PostgresDatabase'
+                inputSchema = 'free_score'
+                forcedTypes {
+                    forcedType {
+                        name = 'varchar'
+                        expression = '.*'
+                        types = 'JSONB?'
+                    }
+                    forcedType {
+                        name = 'varchar'
+                        expression = '.*'
+                        types = 'INET'
+                    }
+                }
+                // ...
+            }
+            generate {
+                relations = false
+                deprecated = false
+                records = false
+                immutablePojos = false
+                fluentSetters = false
+                // ...
+            }
+            target {
+                packageName = 'com.kalm004.persistence'
+                // directory = ...
+            }
+        }
+    }
+}
+
+
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }

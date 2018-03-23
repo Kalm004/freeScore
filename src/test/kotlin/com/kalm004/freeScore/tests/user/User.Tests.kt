@@ -21,7 +21,7 @@ class UserTests {
 
     @Test
     fun testGetAllUsers() {
-        given(userRepository.getAll()).willReturn(setOf(User(1, "Test")));
+        given(userRepository.getAll()).willReturn(setOf(User(1, "Test")))
         assertEquals(setOf(User(1, "Test")), userService.getAllUsers(), "Get all users different result")
     }
 }
