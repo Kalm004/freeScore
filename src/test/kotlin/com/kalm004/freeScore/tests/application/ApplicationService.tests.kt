@@ -1,4 +1,4 @@
-package com.kalm004.freeScore.tests
+package com.kalm004.freeScore.tests.application
 
 import com.kalm004.freeScore.application.Application
 import com.kalm004.freeScore.application.ApplicationRepository
@@ -14,7 +14,7 @@ import kotlin.test.assertEquals
 
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class ApplicationTests {
+class ApplicationServiceTests {
     @Autowired
     lateinit var applicationService : ApplicationService
 

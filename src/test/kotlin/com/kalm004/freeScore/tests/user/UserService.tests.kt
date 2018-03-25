@@ -1,4 +1,4 @@
-package com.kalm004.freeScore.tests
+package com.kalm004.freeScore.tests.user
 
 import com.kalm004.freeScore.user.User
 import com.kalm004.freeScore.user.UserRepository
@@ -14,7 +14,7 @@ import kotlin.test.assertEquals
 
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class UserTests {
+class UserServiceTests {
     @Autowired lateinit var userService: UserService
 
     @MockBean lateinit var userRepository: UserRepository

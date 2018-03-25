@@ -9,4 +9,12 @@ class ScoreRepository : BaseRepository() {
     fun getAll() : Set<Score> {
         return createQuery().select().from(SCORE).fetchInto(Score::class.java).toSet()
     }
+
+    fun saveScore(appId : Int, userId : Int, value : Long) {
+        createQuery()
+                .insertInto(SCORE)
+                .columns(SCORE.APPLICATIONID, SCORE.USERID, SCORE.VALUE)
+                .values(appId, userId, value)
+                .execute()
+    }
 }
