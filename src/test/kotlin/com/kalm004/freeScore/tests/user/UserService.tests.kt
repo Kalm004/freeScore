@@ -3,13 +3,13 @@ package com.kalm004.freeScore.tests.user
 import com.kalm004.freeScore.user.User
 import com.kalm004.freeScore.user.UserRepository
 import com.kalm004.freeScore.user.UserService
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.BDDMockito.given
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.test.context.junit4.SpringRunner
-import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @RunWith(SpringRunner::class)
