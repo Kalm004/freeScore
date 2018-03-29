@@ -2,11 +2,11 @@ package com.kalm004.freeScore.tests.score
 
 import com.kalm004.freeScore.game.Game
 import com.kalm004.freeScore.game.GameRepository
+import com.kalm004.freeScore.player.Player
 import com.kalm004.freeScore.player.PlayerRepository
 import com.kalm004.freeScore.score.Score
 import com.kalm004.freeScore.score.ScoreRepository
 import com.kalm004.freeScore.score.ScoreService
-import com.kalm004.freeScore.user.User
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.BDDMockito.given
@@ -44,7 +44,7 @@ class ScoreServiceTests {
     @Test
     fun saveScore() {
         given(gameRepository.getById(1)).willReturn(Game(1, "Test",  1))
-        given(playerRepository.getById(1)).willReturn(User(1, "Test", "hash", "a@a.com"))
+        given(playerRepository.getById(1)).willReturn(Player(1, "Player1"))
         given(scoreRepository.saveScore(1, 1, 100)).will { println("Score saved!") }
         scoreService.saveScore(1, 1, 100)
         assert(true)
