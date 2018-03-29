@@ -17,30 +17,38 @@ abstract class BaseH2Test {
         context.createTableIfNotExists(Tables.USER)
                 .column(Tables.USER.ID, H2DataType.INTEGER.nullable(false).identity(true))
                 .column(Tables.USER.NAME)
+                .column(Tables.USER.HASHEDPASSWORD)
+                .column(Tables.USER.EMAIL)
                 .execute()
 
-        context.createTableIfNotExists(Tables.APPLICATION)
-                .column(Tables.APPLICATION.ID, H2DataType.INTEGER.nullable(false).identity(true))
-                .column(Tables.APPLICATION.NAME)
+        context.createTableIfNotExists(Tables.GAME)
+                .column(Tables.GAME.ID, H2DataType.INTEGER.nullable(false).identity(true))
+                .column(Tables.GAME.NAME)
+                .column(Tables.GAME.USERID)
                 .execute()
 
         context.createTableIfNotExists(Tables.SCORE)
                 .column(Tables.SCORE.ID, H2DataType.INTEGER.nullable(false).identity(true))
-                .column(Tables.SCORE.APPLICATIONID)
-                .column(Tables.SCORE.USERID)
+                .column(Tables.SCORE.GAMEID)
+                .column(Tables.SCORE.PLAYERID)
                 .column(Tables.SCORE.VALUE)
                 .execute()
 
+        context.createTableIfNotExists(Tables.PLAYER)
+                .column(Tables.PLAYER.ID, H2DataType.INTEGER.nullable(false).identity(true))
+                .column(Tables.PLAYER.NAME)
+                .execute()
+
         context.alterTable(Tables.SCORE).add(
-                constraint("FK_APPLICATION_ID")
-                        .foreignKey(Tables.SCORE.APPLICATIONID)
-                        .references(Tables.APPLICATION, Tables.APPLICATION.ID))
+                constraint("FK_GAME_ID")
+                        .foreignKey(Tables.SCORE.GAMEID)
+                        .references(Tables.GAME, Tables.GAME.ID))
                         .execute()
 
         context.alterTable(Tables.SCORE).add(
-                constraint("FK_USER_ID")
-                        .foreignKey(Tables.SCORE.USERID)
-                        .references(Tables.USER, Tables.USER.ID))
+                constraint("FK_PLAYER_ID")
+                        .foreignKey(Tables.SCORE.PLAYERID)
+                        .references(Tables.PLAYER, Tables.PLAYER.ID))
                 .execute()
     }
 
@@ -48,8 +56,9 @@ abstract class BaseH2Test {
     fun destroyH2Database() {
         val context = createQuery()
         context.dropTableIfExists(Tables.USER).execute()
-        context.dropTableIfExists(Tables.APPLICATION).execute()
+        context.dropTableIfExists(Tables.GAME).execute()
         context.dropTableIfExists(Tables.SCORE).execute()
+        context.dropTableIfExists(Tables.PLAYER).execute()
     }
 
     fun createQuery() : DSLContext {

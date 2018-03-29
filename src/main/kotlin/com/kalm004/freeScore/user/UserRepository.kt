@@ -7,9 +7,12 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class UserRepository : BaseRepository() {
-    fun getAll() : Set<User> {
-        return createQuery().select().from(USER).fetchInto(User::class.java).toSet()
-    }
+    fun getAll() : Set<User> =
+            createQuery()
+                    .select()
+                    .from(USER)
+                    .fetchInto(User::class.java)
+                    .toSet()
 
     fun getById(id : Int) : User? =
         try {

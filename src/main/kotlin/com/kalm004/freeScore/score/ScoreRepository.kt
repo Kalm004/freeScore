@@ -10,11 +10,11 @@ class ScoreRepository : BaseRepository() {
         return createQuery().select().from(SCORE).fetchInto(Score::class.java).toSet()
     }
 
-    fun saveScore(appId : Int, userId : Int, value : Long) {
+    fun saveScore(appId : Int, playerId : Int, value : Long) {
         createQuery()
                 .insertInto(SCORE)
-                .columns(SCORE.APPLICATIONID, SCORE.USERID, SCORE.VALUE)
-                .values(appId, userId, value)
+                .columns(SCORE.GAMEID, SCORE.PLAYERID, SCORE.VALUE)
+                .values(appId, playerId, value)
                 .execute()
     }
 }

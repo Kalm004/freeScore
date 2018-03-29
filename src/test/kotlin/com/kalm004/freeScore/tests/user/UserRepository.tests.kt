@@ -15,7 +15,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 
 @RunWith(SpringRunner::class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest
 class UserRepositoryTests : BaseH2Test() {
     @Autowired
     lateinit var userRepository : UserRepository
@@ -25,33 +25,43 @@ class UserRepositoryTests : BaseH2Test() {
         val context : DSLContext = createQuery()
 
         context.insertInto(USER)
-                .columns(USER.NAME)
-                .values("PEPE")
+                .columns(USER.NAME, USER.HASHEDPASSWORD, USER.EMAIL)
+                .values("PEPE", "hash", "a@a.com")
                 .execute()
 
         context.insertInto(USER)
-                .columns(USER.NAME)
-                .values("MANOLO")
+                .columns(USER.NAME, USER.HASHEDPASSWORD, USER.EMAIL)
+                .values("MANOLO", "hash", "a@a.com")
                 .execute()
     }
 
     @Test
-    fun testGetAllUsersOk() {
-        assertEquals(setOf(User(1, "PEPE"), User(2, "MANOLO")), userRepository.getAll())
-    }
+    fun testGetAllUsersOk() =
+            assertEquals(
+                setOf(
+                        User(1, "PEPE", "hash", "a@a.com"),
+                        User(2, "MANOLO", "hash", "a@a.com")
+                ),
+                userRepository.getAll())
 
     @Test
-    fun testGetAllUsersNotOk() {
-        assertNotEquals(setOf(User(2, "MANOLO")), userRepository.getAll())
-    }
+    fun testGetAllUsersNotOk() =
+        assertNotEquals(
+                setOf(
+                        User(2, "MANOLO", "hash", "a@a.com")
+                ),
+                userRepository.getAll())
 
     @Test
-    fun testGetUserByIdOk() {
-        assertEquals(User(1, "PEPE"), userRepository.getById(1))
-    }
+    fun testGetUserByIdOk() =
+            assertEquals(
+                    User(1, "PEPE", "hash", "a@a.com"),
+                    userRepository.getById(1))
 
     @Test
-    fun testGetUserByIdNotOk() {
-        assertEquals(null, userRepository.getById(3))
-    }
+    fun testGetUserByIdNotOk() =
+        assertEquals(
+                null,
+                userRepository.getById(3))
+
 }

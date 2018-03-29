@@ -8,7 +8,7 @@ class ScoreController(@Autowired var scoreService : ScoreService) {
     @GetMapping("/scores")
     fun getAll() = scoreService.getAllScore()
 
-    @PostMapping("/scores/{appId}/{userId}")
+    @PostMapping("/scores/{appId}/{playerId}")
     fun addScore(@PathVariable appId : Int, @PathVariable userId : Int, @RequestBody value : Long) =
             scoreService.saveScore(appId, userId, value)
 }

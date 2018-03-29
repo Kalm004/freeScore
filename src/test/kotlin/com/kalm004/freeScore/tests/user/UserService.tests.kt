@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner
 import kotlin.test.assertEquals
 
 @RunWith(SpringRunner::class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest
 class UserServiceTests {
     @Autowired lateinit var userService: UserService
 
@@ -21,9 +21,9 @@ class UserServiceTests {
 
     @Test
     fun testGetAllUsers() {
-        given(userRepository.getAll()).willReturn(setOf(User(1, "Test")))
+        given(userRepository.getAll()).willReturn(setOf(User(1, "Test", "hash", "a@a.com")))
         assertEquals(
-                setOf(User(1, "Test")),
+                setOf(User(1, "Test", "hash", "a@a.com")),
                 userService.getAllUsers(),
                 "Get all users different result"
         )

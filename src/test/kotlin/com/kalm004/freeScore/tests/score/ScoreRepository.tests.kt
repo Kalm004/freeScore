@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner
 import kotlin.test.assertEquals
 
 @RunWith(SpringRunner::class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest
 class ScoreRepository : BaseH2Test() {
     @Autowired
     lateinit var scoreRepository: ScoreRepository
@@ -25,17 +25,22 @@ class ScoreRepository : BaseH2Test() {
         val context : DSLContext = createQuery()
 
         context.insertInto(Tables.USER)
-                .columns(Tables.USER.NAME)
-                .values("PEPE")
+                .columns(Tables.USER.NAME, Tables.USER.HASHEDPASSWORD, Tables.USER.EMAIL)
+                .values("PEPE", "hash", "a@a.com")
                 .execute()
 
-        context.insertInto(Tables.APPLICATION)
-                .columns(Tables.APPLICATION.NAME)
-                .values("APP_PEPE")
+        context.insertInto(Tables.PLAYER)
+                .columns(Tables.PLAYER.NAME)
+                .values("Player1")
+                .execute()
+
+        context.insertInto(Tables.GAME)
+                .columns(Tables.GAME.NAME, Tables.GAME.USERID)
+                .values("APP_PEPE", 1)
                 .execute()
 
         context.insertInto(Tables.SCORE)
-                .columns(Tables.SCORE.APPLICATIONID, Tables.SCORE.USERID, Tables.SCORE.VALUE)
+                .columns(Tables.SCORE.GAMEID, Tables.SCORE.PLAYERID, Tables.SCORE.VALUE)
                 .values(1, 1, 50)
                 .execute()
     }
