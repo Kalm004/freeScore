@@ -1,4 +1,4 @@
-package com.kalm004.freeScore.tests.player
+package com.kalm004.freeScore.tests.unitTests.player
 
 import com.kalm004.freeScore.player.Player
 import com.kalm004.freeScore.player.PlayerRepository
@@ -23,16 +23,21 @@ class PlayerRepositoryTests : BaseH2Test() {
     fun beforeTests() {
         val context : DSLContext = createQuery()
 
+        context.insertInto(Tables.GAME)
+                .columns(Tables.GAME.NAME, Tables.GAME.USERID, Tables.GAME.KEY)
+                .values("APP_PEPE", 1, "KEY")
+                .execute()
+
         context.insertInto(Tables.PLAYER)
-                .columns(Tables.PLAYER.NAME)
-                .values("Player1")
+                .columns(Tables.PLAYER.NAME, Tables.PLAYER.GAMEID)
+                .values("Player1", 1)
                 .execute()
     }
 
     @Test
     fun testGetPlayerById() =
             assertEquals(
-                    Player(1, "Player1"),
+                    Player(1, "Player1", 1),
                     playerRepository.getById(1)
             )
 }

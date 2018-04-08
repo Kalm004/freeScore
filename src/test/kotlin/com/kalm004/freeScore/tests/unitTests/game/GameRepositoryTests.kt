@@ -1,4 +1,4 @@
-package com.kalm004.freeScore.tests.game
+package com.kalm004.freeScore.tests.unitTests.game
 
 import com.kalm004.freeScore.game.Game
 import com.kalm004.freeScore.game.GameRepository
@@ -31,29 +31,29 @@ class GameRepositoryTests : BaseH2Test() {
                 .execute()
 
         context.insertInto(GAME)
-                .columns(GAME.NAME, GAME.USERID)
-                .values("APP_PEPE", 1)
+                .columns(GAME.NAME, GAME.USERID, GAME.KEY)
+                .values("APP_PEPE", 1, "KEY")
                 .execute()
 
         context.insertInto(GAME)
-                .columns(GAME.NAME, GAME.USERID)
-                .values("APP_MANOLO", 1)
+                .columns(GAME.NAME, GAME.USERID, GAME.KEY)
+                .values("APP_MANOLO", 1, "KEY")
                 .execute()
     }
 
     @Test
     fun testGetAllGamesOk() {
-        assertEquals(setOf(Game(1, "APP_PEPE", 1), Game(2, "APP_MANOLO", 1)), gameRepository.getAll())
+        assertEquals(setOf(Game(1, "APP_PEPE", 1, "KEY"), Game(2, "APP_MANOLO", 1, "KEY")), gameRepository.getAll())
     }
 
     @Test
     fun testGetAllGamesNotOk() {
-        assertNotEquals(setOf(Game(2, "APP_MANOLO", 1)), gameRepository.getAll())
+        assertNotEquals(setOf(Game(2, "APP_MANOLO", 1, "KEY")), gameRepository.getAll())
     }
 
     @Test
     fun testGetGameByIdOk() {
-        assertEquals(Game(1, "APP_PEPE", 1), gameRepository.getById(1))
+        assertEquals(Game(1, "APP_PEPE", 1, "KEY"), gameRepository.getById(1))
     }
 
     @Test

@@ -19,12 +19,14 @@ abstract class BaseH2Test {
                 .column(Tables.USER.NAME)
                 .column(Tables.USER.HASHEDPASSWORD)
                 .column(Tables.USER.EMAIL)
+                .column(Tables.USER.ROLE)
                 .execute()
 
         context.createTableIfNotExists(Tables.GAME)
                 .column(Tables.GAME.ID, H2DataType.INTEGER.nullable(false).identity(true))
                 .column(Tables.GAME.NAME)
                 .column(Tables.GAME.USERID)
+                .column(Tables.GAME.KEY)
                 .execute()
 
         context.createTableIfNotExists(Tables.SCORE)
@@ -37,6 +39,7 @@ abstract class BaseH2Test {
         context.createTableIfNotExists(Tables.PLAYER)
                 .column(Tables.PLAYER.ID, H2DataType.INTEGER.nullable(false).identity(true))
                 .column(Tables.PLAYER.NAME)
+                .column(Tables.PLAYER.GAMEID)
                 .execute()
 
         context.alterTable(Tables.SCORE).add(

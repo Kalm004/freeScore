@@ -1,4 +1,4 @@
-package com.kalm004.freeScore.tests.game
+package com.kalm004.freeScore.tests.unitTests.game
 
 import com.kalm004.freeScore.game.Game
 import com.kalm004.freeScore.game.GameRepository
@@ -23,9 +23,9 @@ class GameServiceTests {
 
     @Test
     fun testGetAllGames() {
-        given(gameRepository.getAll()).willReturn(setOf(Game(1, "Test", 1)))
+        given(gameRepository.getAll()).willReturn(setOf(Game(1, "Test", 1, "KEY")))
         assertEquals(
-                setOf(Game(1, "Test", 1)),
+                setOf(Game(1, "Test", 1, "KEY")),
                 gameService.getAllGames(),
                 "Get all users different result"
         )

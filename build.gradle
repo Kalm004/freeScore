@@ -13,8 +13,8 @@ buildscript {
 }
 
 
-group 'com.kalm004'
-version '1.0-SNAPSHOT'
+group= 'com.kalm004'
+version= '1.0-SNAPSHOT'
 
 apply plugin: 'kotlin'
 apply plugin: "kotlin-spring" // See https://kotlinlang.org/docs/reference/compiler-plugins.html#kotlin-spring-compiler-plugin
@@ -37,6 +37,7 @@ springBoot {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version" // Required for Kotlin integration
     compile 'org.springframework.boot:spring-boot-starter-web'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '1.5.4.RELEASE'
     testCompile('org.springframework.boot:spring-boot-starter-test')
     compile 'org.jooq:jooq'
     compile group: 'org.postgresql', name: 'postgresql', version: '42.2.2'
@@ -44,6 +45,8 @@ dependencies {
     testCompile "org.jetbrains.kotlin:kotlin-test"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit"
     testCompile group: 'com.h2database', name: 'h2', version: '1.4.197'
+    compile group: 'org.mindrot', name: 'jbcrypt', version: '0.3m'
+    compile 'io.rest-assured:rest-assured:3.0.7'
 }
 
 jooq {

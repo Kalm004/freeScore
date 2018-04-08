@@ -1,4 +1,4 @@
-package com.kalm004.freeScore
+package com.kalm004.freeScore.common
 
 import org.jooq.DSLContext
 import org.jooq.impl.DSL

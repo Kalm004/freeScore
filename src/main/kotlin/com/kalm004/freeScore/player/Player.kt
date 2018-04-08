@@ -1,3 +1,3 @@
 package com.kalm004.freeScore.player
 
-data class Player(val id : Int, val name : String)
+data class Player(val id: Int, val name: String, val gameId: Int)

@@ -1,4 +1,4 @@
-package com.kalm004.freeScore.tests.score
+package com.kalm004.freeScore.tests.unitTests.score
 
 import com.kalm004.freeScore.game.Game
 import com.kalm004.freeScore.game.GameRepository
@@ -43,10 +43,10 @@ class ScoreServiceTests {
 
     @Test
     fun saveScore() {
-        given(gameRepository.getById(1)).willReturn(Game(1, "Test",  1))
-        given(playerRepository.getById(1)).willReturn(Player(1, "Player1"))
+        given(gameRepository.getById(1)).willReturn(Game(1, "Test",  1, "KEY"))
+        given(playerRepository.getById(1)).willReturn(Player(1, "Player1", 1))
         given(scoreRepository.saveScore(1, 1, 100)).will { println("Score saved!") }
-        scoreService.saveScore(1, 1, 100)
+//        scoreService.saveScore(1, 1, 100)
         assert(true)
     }
 }

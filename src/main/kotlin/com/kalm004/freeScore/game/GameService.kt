@@ -6,4 +6,8 @@ import org.springframework.stereotype.Service
 @Service
 class GameService(@Autowired var gameRepository: GameRepository) {
     fun getAllGames() = gameRepository.getAll()
+
+    fun createGame(game: GameCreationData) : String = TODO()
+
+    fun getByNameAndUserId(name: String, userId: Int) = gameRepository.getByNameAndUserId(name, userId)
 }

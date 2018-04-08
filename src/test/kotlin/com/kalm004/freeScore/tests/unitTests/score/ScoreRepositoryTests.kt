@@ -1,4 +1,4 @@
-package com.kalm004.freeScore.tests.score
+package com.kalm004.freeScore.tests.unitTests.score
 
 import com.kalm004.freeScore.score.Score
 import com.kalm004.freeScore.score.ScoreRepository
@@ -16,7 +16,7 @@ import kotlin.test.assertEquals
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
-class ScoreRepository : BaseH2Test() {
+class ScoreRepositoryTests : BaseH2Test() {
     @Autowired
     lateinit var scoreRepository: ScoreRepository
 
