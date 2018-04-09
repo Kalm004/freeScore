@@ -14,8 +14,8 @@ The possible operations for each role are:
 
 * Admin
     * Users management
-    * View a list of users
-    * Activate / Deactivate an user
+        * View a list of users
+        * Activate / Deactivate an user
 * Game developer
     * Sign up
     * Sign in

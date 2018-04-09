@@ -1,5 +1,6 @@
 package com.kalm004.freeScore.authentication
 
+import com.kalm004.freeScore.roles.Role
 import com.kalm004.freeScore.user.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
@@ -21,10 +22,18 @@ class SpringSecurityConfig : WebSecurityConfigurerAdapter(false) {
 
     override fun configure(http: HttpSecurity?) {
         http?.csrf()?.disable()?.authorizeRequests()?.
-                antMatchers(HttpMethod.GET, "/users")?.hasRole("ADMIN")?.
-                antMatchers(HttpMethod.GET, "/games")?.hasRole("USER")?.
+                //Users operations
+                antMatchers(HttpMethod.GET, "/users")?.hasRole(Role.ADMIN.name)?.
                 antMatchers(HttpMethod.POST, "/users")?.anonymous()?.
-                anyRequest()?.authenticated()?.
-                and()?.httpBasic()
+
+                //Games operations
+                antMatchers(HttpMethod.GET, "/users/{\\d+}/games")?.hasRole(Role.GAME_DEVELOPER.name)?.
+                antMatchers(HttpMethod.POST, "/users/{\\d+}/games")?.hasRole(Role.GAME_DEVELOPER.name)?.
+                antMatchers(HttpMethod.DELETE, "/users/{\\d+}/games/{\\d+}")?.hasRole(Role.GAME_DEVELOPER.name)?.
+                antMatchers(HttpMethod.PUT, "/users/{\\d+}/games/{\\d+}")?.hasRole(Role.GAME_DEVELOPER.name)?.
+                antMatchers(HttpMethod.GET, "/users/{\\d+}/games/{\\d+}/scores")?.hasRole(Role.GAME_DEVELOPER.name)?.
+
+                //Use HTTP basic authentication
+                anyRequest()?.authenticated()?.and()?.httpBasic()
     }
 }

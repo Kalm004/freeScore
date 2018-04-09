@@ -1,5 +1,6 @@
 package com.kalm004.freeScore.user
 
+import com.kalm004.freeScore.roles.Role
 import com.kalm004.freeScore.utils.encodePassword
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -15,7 +16,8 @@ class UserService(@Autowired var userRepository: UserRepository) {
         userRepository.createUser(
                 userRegistrationData.name,
                 encodePassword(userRegistrationData.password),
-                userRegistrationData.email
+                userRegistrationData.email,
+                Role.GAME_DEVELOPER
         )
     }
 }

@@ -1,5 +1,6 @@
 package com.kalm004.freeScore.tests.unitTests.user
 
+import com.kalm004.freeScore.roles.Role
 import com.kalm004.freeScore.tests.BaseH2Test
 import com.kalm004.freeScore.user.User
 import com.kalm004.freeScore.user.UserRepository
@@ -25,13 +26,13 @@ class UserRepositoryTests : BaseH2Test() {
         val context : DSLContext = createQuery()
 
         context.insertInto(USER)
-                .columns(USER.NAME, USER.HASHEDPASSWORD, USER.EMAIL)
-                .values("PEPE", "hash", "a@a.com")
+                .columns(USER.NAME, USER.HASHEDPASSWORD, USER.EMAIL, USER.ROLE)
+                .values("PEPE", "hash", "a@a.com", Role.GAME_DEVELOPER.name)
                 .execute()
 
         context.insertInto(USER)
-                .columns(USER.NAME, USER.HASHEDPASSWORD, USER.EMAIL)
-                .values("MANOLO", "hash", "a@a.com")
+                .columns(USER.NAME, USER.HASHEDPASSWORD, USER.EMAIL, USER.ROLE)
+                .values("MANOLO", "hash", "a@a.com", Role.GAME_DEVELOPER.name)
                 .execute()
     }
 
@@ -39,8 +40,8 @@ class UserRepositoryTests : BaseH2Test() {
     fun testGetAllUsersOk() =
             assertEquals(
                 setOf(
-                        User(1, "PEPE", "hash", "a@a.com", "USER"),
-                        User(2, "MANOLO", "hash", "a@a.com", "USER")
+                        User(1, "PEPE", "hash", "a@a.com", Role.GAME_DEVELOPER),
+                        User(2, "MANOLO", "hash", "a@a.com", Role.GAME_DEVELOPER)
                 ),
                 userRepository.getAll())
 
@@ -48,14 +49,14 @@ class UserRepositoryTests : BaseH2Test() {
     fun testGetAllUsersNotOk() =
         assertNotEquals(
                 setOf(
-                        User(2, "MANOLO", "hash", "a@a.com", "USER")
+                        User(2, "MANOLO", "hash", "a@a.com", Role.GAME_DEVELOPER)
                 ),
                 userRepository.getAll())
 
     @Test
     fun testGetUserByIdOk() =
             assertEquals(
-                    User(1, "PEPE", "hash", "a@a.com","USER"),
+                    User(1, "PEPE", "hash", "a@a.com", Role.GAME_DEVELOPER),
                     userRepository.getById(1))
 
     @Test
@@ -71,9 +72,14 @@ class UserRepositoryTests : BaseH2Test() {
         //Empty database
 
         //when:
-        userRepository.createUser("User1", "1234", "user@server.com")
+        userRepository.createUser("User1", "1234", "user@server.com", Role.GAME_DEVELOPER)
 
         //then:
-        assert(userRepository.getAll().any { it.name.equals("User1") })
+        assert(userRepository.getAll().any {
+            it.name == "User1"
+            && it.hashedPassword == "1234"
+            && it.email == "user@server.com"
+            && it.role == Role.GAME_DEVELOPER
+        })
     }
 }

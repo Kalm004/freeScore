@@ -44,7 +44,9 @@ class GameControllerTests : BaseH2Test() {
         given().
                 header("Authorization", "Basic $base64userPassword").
         `when`().
-                get("https://localhost:$port/games").then().statusCode(200)
+                get("https://localhost:$port/games").
+        then().
+                statusCode(200)
     }
 
 }

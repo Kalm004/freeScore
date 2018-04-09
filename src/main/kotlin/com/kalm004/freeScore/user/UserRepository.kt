@@ -2,6 +2,7 @@ package com.kalm004.freeScore.user
 
 import com.kalm004.freeScore.common.BaseRepository
 import com.kalm004.freeScore.exceptions.EntityNotFoundException
+import com.kalm004.freeScore.roles.Role
 import com.kalm004.persistence.Tables.USER
 import org.jooq.exception.NoDataFoundException
 import org.springframework.stereotype.Repository
@@ -41,10 +42,10 @@ class UserRepository : BaseRepository() {
                 throw EntityNotFoundException("USER")
             }
 
-    fun createUser(name: String, hashedPassword: String, email: String) =
+    fun createUser(name: String, hashedPassword: String, email: String, role: Role) =
         createQuery()
                 .insertInto(USER)
-                .columns(USER.NAME, USER.HASHEDPASSWORD, USER.EMAIL)
-                .values(name, hashedPassword, email)
+                .columns(USER.NAME, USER.HASHEDPASSWORD, USER.EMAIL, USER.ROLE)
+                .values(name, hashedPassword, email, role.name)
                 .execute()
 }
