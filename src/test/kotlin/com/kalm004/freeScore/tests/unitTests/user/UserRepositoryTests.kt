@@ -82,4 +82,20 @@ class UserRepositoryTests : BaseH2Test() {
             && it.role == Role.GAME_DEVELOPER
         })
     }
+
+    @Test
+    fun updateUserRole() {
+        //given:
+        userRepository.createUser("User1", "1234", "user@server.com", Role.GAME_DEVELOPER)
+
+        //when:
+        val userId = userRepository.getByEmail("user@server.com")?.id
+        userRepository.updateUserRol(userId!!, Role.ADMIN)
+
+        //then:
+        assertEquals(
+                User(userId, "User1", "1234", "user@server.com", Role.ADMIN),
+                userRepository.getByEmail("user@server.com")
+        )
+    }
 }

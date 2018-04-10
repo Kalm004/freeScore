@@ -20,4 +20,10 @@ class UserService(@Autowired var userRepository: UserRepository) {
                 Role.GAME_DEVELOPER
         )
     }
+
+    fun setAdminRoleToUser(userId: Int) =
+            userRepository.updateUserRol(userId, Role.ADMIN)
+
+    fun removeAdminRoleUser(userId: Int) =
+            userRepository.updateUserRol(userId, Role.GAME_DEVELOPER)
 }

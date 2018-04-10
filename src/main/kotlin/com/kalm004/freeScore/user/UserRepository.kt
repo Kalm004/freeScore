@@ -27,6 +27,17 @@ class UserRepository : BaseRepository() {
             null
         }
 
+    fun getByEmail(email : String) : User? =
+            try {
+                createQuery()
+                        .select()
+                        .from(USER)
+                        .where(USER.EMAIL.eq(email))
+                        .fetchSingleInto(User::class.java)
+            } catch (e: NoDataFoundException) {
+                null
+            }
+
     fun getByNameAndHashedPassword(name : String, hashedPassword: String) : User =
             try {
                 createQuery()
@@ -48,4 +59,15 @@ class UserRepository : BaseRepository() {
                 .columns(USER.NAME, USER.HASHEDPASSWORD, USER.EMAIL, USER.ROLE)
                 .values(name, hashedPassword, email, role.name)
                 .execute()
+
+    fun updateUserRol(userId: Int, role: Role) =
+            try {
+                createQuery()
+                        .update(USER)
+                        .set(USER.ROLE, role.name)
+                        .where(USER.ID.eq(userId))
+                        .execute()
+            } catch (e: NoDataFoundException) {
+                throw EntityNotFoundException("USER")
+            }
 }

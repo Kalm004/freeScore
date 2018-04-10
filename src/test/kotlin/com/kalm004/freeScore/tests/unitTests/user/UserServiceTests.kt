@@ -46,4 +46,24 @@ class UserServiceTests {
                 Role.GAME_DEVELOPER
         )
     }
+
+    @Test
+    fun setUserAsAdmin() {
+        //given:
+        //when:
+        userService.setAdminRoleToUser(1)
+
+        //then:
+        Mockito.verify(userRepository).updateUserRol(1, Role.ADMIN)
+    }
+
+    @Test
+    fun removeAdminRole() {
+        //given:
+        //when:
+        userService.removeAdminRoleUser(1)
+
+        //then:
+        Mockito.verify(userRepository).updateUserRol(1, Role.GAME_DEVELOPER)
+    }
 }

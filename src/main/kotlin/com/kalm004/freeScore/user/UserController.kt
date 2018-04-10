@@ -18,6 +18,14 @@ class UserController(@Autowired var userService : UserService) {
     @DeleteMapping("/{userId}/activate")
     fun deactivateUser(@PathVariable userId : Int) : String = TODO()
 
+    @PostMapping("/{userId}/admin")
+    fun setUserRoleToAdmin(@PathVariable userId : Int) =
+            userService.setAdminRoleToUser(userId)
+
+    @DeleteMapping("/{userId}/admin")
+    fun removeUserRoleAdmin(@PathVariable userId : Int) =
+            userService.removeAdminRoleUser(userId)
+
     @PostMapping
     fun createUser(@RequestBody userRegistrationData : UserRegistrationData) =
             userService.createUser(userRegistrationData)
