@@ -1,21 +1,24 @@
 package com.kalm004.freeScore.game
 
+import com.kalm004.freeScore.user.User
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.security.access.annotation.Secured
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
-import java.security.Principal
+import org.springframework.security.authentication.BadCredentialsException
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.web.bind.annotation.*
 
 @RestController
+@RequestMapping("/users/{userId}/games")
 class GameController(@Autowired var gameService : GameService) {
 
-    @GetMapping("/games")
-    fun getAll(principal : Principal) : Set<Game> {
-        return gameService.getAllGames()
+    @GetMapping
+    fun getAll(@PathVariable userId : Int, principal : UsernamePasswordAuthenticationToken) : Set<Game> {
+        val loggedInUser = principal.principal as User
+        if (loggedInUser.id == userId)
+            return gameService.getAllGamesByUser(userId)
+        else
+            throw BadCredentialsException("You don't have permissions to see the games for that user")
     }
 
-    @PostMapping("/games")
+    @PostMapping
     fun createGame(@RequestBody game : GameCreationData) = gameService.createGame(game)
 }

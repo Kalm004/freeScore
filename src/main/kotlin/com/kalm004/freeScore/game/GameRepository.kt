@@ -24,6 +24,14 @@ class GameRepository : BaseRepository() {
             null
         }
 
+    fun getAllByUser(userId: Int) =
+            createQuery()
+                    .select()
+                    .from(GAME)
+                    .where(GAME.USERID.eq(userId))
+                    .fetchInto(Game::class.java)
+                    .toSet()
+
     fun getByKey(gameKey : String) : Game =
             try {
                 createQuery()

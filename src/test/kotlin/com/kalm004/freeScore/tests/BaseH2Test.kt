@@ -12,6 +12,8 @@ import java.util.*
 abstract class BaseH2Test {
     @Before
     fun createH2Database() {
+        destroyH2Database()
+
         val context = createQuery()
 
         context.createTableIfNotExists(Tables.USER)

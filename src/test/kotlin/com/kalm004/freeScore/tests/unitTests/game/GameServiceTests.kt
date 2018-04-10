@@ -22,11 +22,11 @@ class GameServiceTests {
     lateinit var gameRepository: GameRepository
 
     @Test
-    fun testGetAllGames() {
-        given(gameRepository.getAll()).willReturn(setOf(Game(1, "Test", 1, "KEY")))
+    fun testGetAllGamesByUserOk() {
+        given(gameRepository.getAllByUser(1)).willReturn(setOf(Game(1, "Test", 1, "KEY")))
         assertEquals(
                 setOf(Game(1, "Test", 1, "KEY")),
-                gameService.getAllGames(),
+                gameService.getAllGamesByUser(1),
                 "Get all users different result"
         )
     }

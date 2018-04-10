@@ -7,10 +7,12 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.ProviderManager
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 
 @Configuration
+//@EnableGlobalMethodSecurity(securedEnabled = true)
 class SpringSecurityConfig : WebSecurityConfigurerAdapter(false) {
     @Autowired
     lateinit var userService : UserService
@@ -24,6 +26,10 @@ class SpringSecurityConfig : WebSecurityConfigurerAdapter(false) {
         http?.csrf()?.disable()?.authorizeRequests()?.
                 //Users operations
                 antMatchers(HttpMethod.GET, "/users")?.hasRole(Role.ADMIN.name)?.
+                antMatchers(HttpMethod.POST, "/users/{\\d+}/activate")?.hasRole(Role.ADMIN.name)?.
+                antMatchers(HttpMethod.DELETE, "/users/{\\d+}/activate")?.hasRole(Role.ADMIN.name)?.
+                antMatchers(HttpMethod.POST, "/users/{\\d+}/admin")?.hasRole(Role.ADMIN.name)?.
+                antMatchers(HttpMethod.DELETE, "/users/{\\d+}/admin")?.hasRole(Role.ADMIN.name)?.
                 antMatchers(HttpMethod.POST, "/users")?.anonymous()?.
 
                 //Games operations

@@ -37,13 +37,13 @@ class GameRepositoryTests : BaseH2Test() {
 
         context.insertInto(GAME)
                 .columns(GAME.NAME, GAME.USERID, GAME.KEY)
-                .values("APP_MANOLO", 1, "KEY")
+                .values("APP_MANOLO", 2, "KEY")
                 .execute()
     }
 
     @Test
     fun testGetAllGamesOk() {
-        assertEquals(setOf(Game(1, "APP_PEPE", 1, "KEY"), Game(2, "APP_MANOLO", 1, "KEY")), gameRepository.getAll())
+        assertEquals(setOf(Game(1, "APP_PEPE", 1, "KEY"), Game(2, "APP_MANOLO", 2, "KEY")), gameRepository.getAll())
     }
 
     @Test
@@ -59,5 +59,10 @@ class GameRepositoryTests : BaseH2Test() {
     @Test
     fun testGetGameByIdNotOk() {
         assertEquals(null, gameRepository.getById(3))
+    }
+
+    @Test
+    fun testGetAllGamesByUserOk() {
+        assertEquals(setOf(Game(2, "APP_MANOLO", 2, "KEY")), gameRepository.getAllByUser(2))
     }
 }

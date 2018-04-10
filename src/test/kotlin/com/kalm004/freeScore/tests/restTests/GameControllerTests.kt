@@ -44,9 +44,23 @@ class GameControllerTests : BaseH2Test() {
         given().
                 header("Authorization", "Basic $base64userPassword").
         `when`().
-                get("https://localhost:$port/games").
+                get("https://localhost:$port/users/1/games").
         then().
                 statusCode(200)
+    }
+
+    @Test
+    fun getAllGamesRestForbiddenTest() {
+        val base64userPassword = Base64.getEncoder().encodeToString("user1:password".toByteArray())
+        userService.createUser(UserRegistrationData("user1", "password", "user@server.com"))
+
+        //GET /games with basic authentication
+        given().
+                header("Authorization", "Basic $base64userPassword").
+        `when`().
+                get("https://localhost:$port/users/2/games").
+        then().
+                statusCode(403)
     }
 
 }

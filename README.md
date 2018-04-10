@@ -16,6 +16,7 @@ The possible operations for each role are:
     * Users management
         * View a list of users
         * Activate / Deactivate an user
+        * Change role Admin - Game Developer
 * Game developer
     * Sign up
     * Sign in
@@ -23,7 +24,8 @@ The possible operations for each role are:
         * View a list of all he/she’s games
         * Create / delete / update a game
         * View all the score of all players for a game
-
+* Both
+    * Change user password
 
 ## Public API
 To be defined.
